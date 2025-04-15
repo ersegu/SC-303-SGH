@@ -78,7 +78,6 @@
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="labelFecha" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelAreaMedica" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="labelCodigoPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="labelHora" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="labelCodigoMedico" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -87,7 +86,6 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="txtFecha" alignment="1" min="-2" pref="305" max="-2" attributes="0"/>
                               <Component id="txtHora" alignment="1" min="-2" pref="305" max="-2" attributes="0"/>
-                              <Component id="boxAreaMedica" alignment="1" min="-2" pref="305" max="-2" attributes="0"/>
                               <Component id="boxPacientes" alignment="1" min="-2" pref="305" max="-2" attributes="0"/>
                               <Component id="boxMedicos" min="-2" pref="305" max="-2" attributes="0"/>
                           </Group>
@@ -146,22 +144,22 @@
                               <Component id="labelCodigoPaciente" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="boxPacientes" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="labelCodigoMedico" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="boxMedicos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="boxMedicos" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="labelCodigoMedico" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="labelAreaMedica" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="boxAreaMedica" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelFecha" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtFecha" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelHora" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtHora" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -304,14 +302,6 @@
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFechaKeyReleased"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelAreaMedica">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="18" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Area Medica:"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="labelHora">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -324,20 +314,6 @@
           <Events>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtHoraKeyReleased"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="boxAreaMedica">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Seleccionar"/>
-                <StringItem index="1" value="Medicina General"/>
-                <StringItem index="2" value="Odontologia"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="labelCodigoMedico">
           <Properties>

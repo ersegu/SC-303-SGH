@@ -58,7 +58,6 @@ public class Citas extends javax.swing.JFrame {
         }
         txtFecha.setText("");
         txtHora.setText("");
-        boxAreaMedica.setSelectedIndex(0);
 
         btnAgregar.setEnabled(true);
         btnEditar.setEnabled(false);
@@ -91,6 +90,30 @@ public class Citas extends javax.swing.JFrame {
                 boxPacientes.addItem(etiqueta);
                 mapaPacientes.put(etiqueta, p);
             }
+        }
+    }
+
+    private boolean validarFecha(String fecha) {
+        try {
+            DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                    .appendValue(ChronoField.DAY_OF_MONTH)
+                    .appendLiteral('/')
+                    .appendValue(ChronoField.MONTH_OF_YEAR)
+                    .appendLiteral('/')
+                    .appendValue(ChronoField.YEAR)
+                    .toFormatter();
+
+            LocalDate fechaIngresada = LocalDate.parse(fecha, formatter);
+            LocalDate hoy = LocalDate.now();
+
+            if (!fechaIngresada.isAfter(hoy)) {
+                JOptionPane.showMessageDialog(this, "La fecha debe ser futura.");
+                return false;
+            }
+            return true;
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "El formato de la fecha es inválido. Usa dd/MM/yyyy, por ejemplo 08/04/2025.");
+            return false;
         }
     }
 
@@ -150,10 +173,8 @@ public class Citas extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         txtFecha = new javax.swing.JTextField();
-        labelAreaMedica = new javax.swing.JLabel();
         labelHora = new javax.swing.JLabel();
         txtHora = new javax.swing.JTextField();
-        boxAreaMedica = new javax.swing.JComboBox<>();
         labelCodigoMedico = new javax.swing.JLabel();
         boxPacientes = new javax.swing.JComboBox();
         boxMedicos = new javax.swing.JComboBox();
@@ -231,9 +252,6 @@ public class Citas extends javax.swing.JFrame {
             }
         });
 
-        labelAreaMedica.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        labelAreaMedica.setText("Area Medica:");
-
         labelHora.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelHora.setText("Hora:");
 
@@ -242,8 +260,6 @@ public class Citas extends javax.swing.JFrame {
                 txtHoraKeyReleased(evt);
             }
         });
-
-        boxAreaMedica.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Medicina General", "Odontologia" }));
 
         labelCodigoMedico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelCodigoMedico.setText("Codigo del Medico:");
@@ -300,7 +316,6 @@ public class Citas extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelFecha)
-                            .addComponent(labelAreaMedica)
                             .addComponent(labelCodigoPaciente)
                             .addComponent(labelHora)
                             .addComponent(labelCodigoMedico))
@@ -308,7 +323,6 @@ public class Citas extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(boxAreaMedica, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(boxPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(boxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -353,19 +367,18 @@ public class Citas extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelCodigoPaciente)
                             .addComponent(boxPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelCodigoMedico)
-                            .addComponent(boxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelAreaMedica)
-                            .addComponent(boxAreaMedica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(boxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(labelCodigoMedico)))
+                        .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelFecha)
                             .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelHora)
                             .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -440,9 +453,8 @@ public class Citas extends javax.swing.JFrame {
             String keyPaciente = (String) boxPacientes.getSelectedItem();
 
             // Validación
-            String areaMedica = boxAreaMedica.getSelectedItem().toString();
-            if (areaMedica.equals("Seleccionar")) {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar un área médica.");
+            boolean fechaValida = validarFecha(fecha);
+            if (!fechaValida) {
                 return;
             }
 
@@ -520,11 +532,11 @@ public class Citas extends javax.swing.JFrame {
             String keyPaciente = (String) boxPacientes.getSelectedItem();
 
             // Validación
-            String areaMedica = boxAreaMedica.getSelectedItem().toString();
-            if (areaMedica.equals("Seleccionar")) {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar un área médica.");
+            boolean fechaValida = validarFecha(nuevaFecha);
+            if (!fechaValida) {
                 return;
             }
+
 
             MedicoMOD nuevoMedico = mapaMedicos.get(keyMedico);
             PacienteMOD nuevoPaciente = mapaPacientes.get(keyPaciente);
@@ -597,18 +609,8 @@ public class Citas extends javax.swing.JFrame {
         MedicoMOD medico = mapaMedicos.get(keyMedico);
         int codigoMedico = medico.getCodigo();
 
-        try {
-            DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-                    .appendValue(ChronoField.DAY_OF_MONTH)
-                    .appendLiteral('/')
-                    .appendValue(ChronoField.MONTH_OF_YEAR)
-                    .appendLiteral('/')
-                    .appendValue(ChronoField.YEAR)
-                    .toFormatter();
-
-            LocalDate.parse(fecha, formatter);
-        } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(this, "El formato de la fecha es inválido. Usa dd/MM/yyyy, por ejemplo 08/04/2025.");
+        boolean fechaValida = validarFecha(fecha);
+        if (!fechaValida) {
             return;
         }
         try {
@@ -666,7 +668,7 @@ public class Citas extends javax.swing.JFrame {
 
     private void btnRecordatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordatorioActionPerformed
         // TODO add your handling code here:
-        if (citaSeleccionada == null){
+        if (citaSeleccionada == null) {
             JOptionPane.showMessageDialog(null,
                     "Debe seleccionar una cita",
                     "Error", JOptionPane.ERROR_MESSAGE);
@@ -684,7 +686,6 @@ public class Citas extends javax.swing.JFrame {
     private Map<String, PacienteMOD> mapaPacientes = new HashMap<>();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> boxAreaMedica;
     private javax.swing.JComboBox boxMedicos;
     private javax.swing.JComboBox boxPacientes;
     private javax.swing.JButton btnAgregar;
@@ -698,7 +699,6 @@ public class Citas extends javax.swing.JFrame {
     private javax.swing.JButton btnValidarFecha;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelAreaMedica;
     private javax.swing.JLabel labelCodigoMedico;
     private javax.swing.JLabel labelCodigoPaciente;
     private javax.swing.JLabel labelFecha;

@@ -52,7 +52,7 @@ public class Usuarios extends javax.swing.JFrame {
         usuarioSeleccionado = null;
         txtUsuario.setText("");
         txtNombre.setText("");
-        txtRol.setText("");
+        boxRol.setSelectedIndex(1);
 
         txtUsuario.setEditable(true);
         btnAgregar.setEnabled(true);
@@ -111,9 +111,9 @@ public class Usuarios extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
-        txtRol = new javax.swing.JTextField();
         labelNombre = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
+        boxRol = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaUsuarios = new javax.swing.JTable();
 
@@ -184,6 +184,8 @@ public class Usuarios extends javax.swing.JFrame {
         labelNombre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelNombre.setText("Usuario:");
 
+        boxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario", "Admin" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -191,10 +193,10 @@ public class Usuarios extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(labelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtRol, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(134, 134, 134)
+                        .addComponent(boxRol, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(labelApellido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -240,8 +242,8 @@ public class Usuarios extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelFecha)
-                    .addComponent(txtRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                    .addComponent(boxRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSalir)
@@ -249,7 +251,7 @@ public class Usuarios extends javax.swing.JFrame {
                         .addGap(64, 64, 64)
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(8, Short.MAX_VALUE)
+                        .addContainerGap(9, Short.MAX_VALUE)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -294,7 +296,7 @@ public class Usuarios extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -327,19 +329,19 @@ public class Usuarios extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         int btn = JOptionPane.showConfirmDialog(this,
-                "¿Desea eliminar al médico: " + txtNombre.getText() + "?",
-                "Eliminar Médico",
+                "¿Desea eliminar al usuario: " + txtNombre.getText() + "?",
+                "Eliminar Usuario",
                 JOptionPane.YES_NO_OPTION);
 
         if (btn == JOptionPane.YES_OPTION) {
             try {
                 if (UsuarioCTR.eliminar(usuarioSeleccionado)) {
-                    JOptionPane.showMessageDialog(this, "Médico eliminado correctamente.");
+                    JOptionPane.showMessageDialog(this, "Usuario eliminado correctamente.");
                     limpiar();
                     actualizarTabla();
                     usuarioSeleccionado = null;
                 } else {
-                    JOptionPane.showMessageDialog(this, "Error al eliminar el médico.");
+                    JOptionPane.showMessageDialog(this, "Error al eliminar el usuario.");
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
@@ -351,7 +353,7 @@ public class Usuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
         String idUsuario = txtUsuario.getText();
         String nombre = txtNombre.getText();
-        String rol = txtRol.getText();
+        String rol = boxRol.getSelectedItem().toString();
 
         UsuarioMOD usuario = new UsuarioMOD();
         usuario.setIdUsuario(idUsuario);
@@ -383,7 +385,7 @@ public class Usuarios extends javax.swing.JFrame {
             txtCodigo.setText(tablaUsuarios.getValueAt(fila, 0).toString());
             txtUsuario.setText(tablaUsuarios.getValueAt(fila, 1).toString());
             txtNombre.setText(tablaUsuarios.getValueAt(fila, 2).toString());
-            txtRol.setText(tablaUsuarios.getValueAt(fila, 3).toString());
+            boxRol.setSelectedItem(tablaUsuarios.getValueAt(fila, 3).toString());
 
             txtUsuario.setEditable(false);
 
@@ -412,6 +414,7 @@ public class Usuarios extends javax.swing.JFrame {
     private UsuarioMOD usuarioSeleccionado;
     private Principal principal;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> boxRol;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
@@ -427,7 +430,6 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JTable tablaUsuarios;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtRol;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
