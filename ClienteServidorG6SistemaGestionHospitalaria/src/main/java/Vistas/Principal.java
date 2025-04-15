@@ -1,6 +1,7 @@
 package Vistas;
 
 import com.mycompany.clienteservidorg6sistemagestionhospitalaria.Servidor;
+import com.mycompany.clienteservidorg6sistemagestionhospitalaria.ServidorNotificacion;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +12,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         new Thread(new Servidor()).start();
+        new Thread(new ServidorNotificacion()).start();
         Thread reloj = new Thread(() -> {
             java.text.SimpleDateFormat formatoHora = new java.text.SimpleDateFormat("hh:mm:ss a");
             java.text.SimpleDateFormat formatoFecha = new java.text.SimpleDateFormat("EEEE, dd 'de' MMMM 'de' yyyy", new java.util.Locale("es", "ES"));

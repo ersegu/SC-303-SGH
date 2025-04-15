@@ -11,6 +11,7 @@ import Modelos.CitaMOD;
 import Modelos.MedicoMOD;
 import Modelos.PacienteMOD;
 import com.mycompany.clienteservidorg6sistemagestionhospitalaria.Cliente;
+import com.mycompany.clienteservidorg6sistemagestionhospitalaria.ClienteNotificacion;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
@@ -159,6 +160,7 @@ public class Citas extends javax.swing.JFrame {
         btnReporte = new javax.swing.JButton();
         btnValidarFecha = new javax.swing.JButton();
         btnHistorialCitas = new javax.swing.JButton();
+        btnRecordatorio = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCitas = new javax.swing.JTable();
 
@@ -278,6 +280,16 @@ public class Citas extends javax.swing.JFrame {
             }
         });
 
+        btnRecordatorio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRecordatorio.setForeground(new java.awt.Color(0, 51, 153));
+        btnRecordatorio.setText("Enviar Recordatorio");
+        btnRecordatorio.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 2, true));
+        btnRecordatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecordatorioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -315,8 +327,10 @@ public class Citas extends javax.swing.JFrame {
                         .addGap(109, 109, 109)
                         .addComponent(btnSalir))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(btnHistorialCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnRecordatorio, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                            .addComponent(btnHistorialCitas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -329,8 +343,10 @@ public class Citas extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRecordatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
                         .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(35, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -360,7 +376,7 @@ public class Citas extends javax.swing.JFrame {
                         .addGap(15, 15, 15))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(btnSalir)
-                .addGap(88, 88, 88)
+                .addGap(26, 26, 26)
                 .addComponent(btnHistorialCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -648,6 +664,17 @@ public class Citas extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnHistorialCitasActionPerformed
 
+    private void btnRecordatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordatorioActionPerformed
+        // TODO add your handling code here:
+        if (citaSeleccionada == null){
+            JOptionPane.showMessageDialog(null,
+                    "Debe seleccionar una cita",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        ClienteNotificacion.enviar(citaSeleccionada.getPaciente().getNombre(), citaSeleccionada.getFecha(), citaSeleccionada.getHora());
+    }//GEN-LAST:event_btnRecordatorioActionPerformed
+
     private Principal principal;
     private CitaMOD citaSeleccionada;
     private ArrayList<CitaMOD> listaCitas = new ArrayList<>();
@@ -665,6 +692,7 @@ public class Citas extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnHistorialCitas;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnRecordatorio;
     private javax.swing.JButton btnReporte;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnValidarFecha;
