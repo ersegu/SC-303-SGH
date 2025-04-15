@@ -53,7 +53,7 @@ CREATE TABLE Facturas (
     montoFactura DOUBLE NOT NULL
 );
 
-CREATE TABLE Citas (
+CREATE TABLE citas (
 	codigoCita INT AUTO_INCREMENT PRIMARY KEY,
     codigoMedico INT NOT NULL,
     codigoPaciente INT NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE Citas (
     horaCita VARCHAR (50) NOT NULL
 );
 
-CREATE TABLE Usuarios (
+CREATE TABLE usuarios (
 	codigo INT auto_increment PRIMARY KEY,
     idUsuario varchar (100) not null unique,
     contrasenha varchar (200) not null,
